@@ -1,0 +1,43 @@
+.productCard {
+  padding: 20px;
+  max-width: 250px;
+  border-radius: 3px;
+  border: var(--border-silver);
+  transition: box-shadow 0.15s;
+}
+
+.productCard:hover {
+  box-shadow: 0 1px 6px 0 rgba(2, 3, 6, 0.1);
+}
+
+.productImage {
+  width: 100%;
+  height: 220px;
+}
+
+.productTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+
+  line-height: 1.2em;
+  height: 3.6em;
+  font-weight: 500;
+}
+
+.productPrice {
+  font-weight: var(--price-weight);
+}
+
+.productCategory {
+  display: block;
+  margin-top: 10px;
+  color: var(--next-blue);
+  font-size: var(--font-s);
+}
+
+.dollarSign {
+  font-size: var(--font-s);
+}
