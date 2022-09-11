@@ -23,10 +23,8 @@ export default function ProductCard({ productInfo }) {
           </div>
         </a>
       </Link>
-      <Link href={`category/${category}`}>
-        <a>
-          <span className={css.productCategory}>{category}</span>
-        </a>
+      <Link href={`/category/${category}`}>
+        <a className={css.productCategory}>{category}</a>
       </Link>
     </div>
   );

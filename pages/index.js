@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import css from '../styles/Home.module.css'
 import ProductCard from '../components/product/productCard'
-import { ProductService } from '../lib/api/productService'
+import ProductService from '../lib/api/productService'
 
 export default function Home({ productList }) {
   return (

@@ -53,6 +53,15 @@ a:hover {
   cursor: pointer;
 }
 
+button {
+  background: white;
+  border: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 button:hover {
   cursor: pointer;
 }

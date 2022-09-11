@@ -1,6 +1,7 @@
 .productCard {
   padding: 20px;
   max-width: 250px;
+  /* min-width: 250px; */
   border-radius: 3px;
   border: var(--border-silver);
   transition: box-shadow 0.15s;
