@@ -7,11 +7,14 @@ import ProductService from '../../lib/api/productService';
 import ProductOptions from '../../components/productDetail/ProductOptions';
 import SelectedOptions from '../../components/productDetail/selectedOptions';
 import SimilarProducts from '../../components/productDetail/similarProducts';
-
+import FIRE_STORE from '../../lib/firebase/fireStore';
+import { useAuthContext } from '../../context/authContext';
+// import 
 export default function ProductDetailPage({ productDetail }) {
   const { id, title, price, category, image } = productDetail;
 
   const router = useRouter();
+  const storage = useAuthContext();
   const [selectedOptions, setSelectedOptions] = useState([]);
 
   const handleSelect = (e) => {
@@ -54,25 +57,41 @@ export default function ProductDetailPage({ productDetail }) {
   }
 
   const handleCart = () => {
-    console.log('handleCart')
-    if (typeof window !== undefined) {
-      if (selectedOptions.length === 0) {
-        alert('옵션을 선택해 주세요.');
-        return;
-      }
-
-      // cartItmes Firebase에 저장하기.
-      const cartItems = selectedOptions.map(selectedOption => {
-        return {
+    if (selectedOptions.length === 0) {
+      alert('Please choose an option.');
+      return;
+    }
+    if (storage.uid) {
+      // Fire Store에 저장
+      selectedOptions.forEach(async selectedOption => {
+        const newItem = {
+          userId: storage.uid,
           productId: id,
-          size: selectedOption.size,
-          quantity: selectedOption.quantity
+          option: selectedOption.size,
+          quantity: selectedOption.quantity,
+          isOrdered: false,
+          date: new Date().toISOString().split('T')[0],
+        }
+
+        await FIRE_STORE.addItem(newItem);
+      });
+    }
+    else {
+      // Session Storage에 저장.
+      selectedOptions.forEach(selectedOption => {
+        return {
+          userId: null,
+          productId: id,
+          option: selectedOption.size,
+          quantity: selectedOption.quantity,
+          isOrdered: false,
+          date: new Date().toISOString().split('T')[0],
         }
       });
+    }
 
-      if (confirm('장바구니에 상품이 추가되었습니다.\n장바구니로 이동 하시곗습니까?')) {
-        router.push('/cart');
-      }
+    if (confirm('장바구니에 상품이 추가되었습니다.\n장바구니로 이동 하시곗습니까?')) {
+      router.push('/cart');
     }
   }
 

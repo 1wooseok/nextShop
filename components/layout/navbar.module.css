@@ -34,3 +34,7 @@
   width: 20rem;
   height: 2rem;
 }
+
+.headerRight {
+  display: flex;
+}
